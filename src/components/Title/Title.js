@@ -1,4 +1,3 @@
-import { theme } from 'assets/styles/theme';
 import styled from 'styled-components';
 
 export const Title = styled.h1`
