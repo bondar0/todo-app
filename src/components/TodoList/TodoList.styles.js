@@ -1,3 +1,4 @@
+import { theme } from 'assets/styles/theme';
 import styled from 'styled-components';
 
 export const List = styled.div`
@@ -5,4 +6,9 @@ export const List = styled.div`
   min-width: 420px;
   margin-left: auto;
   margin-right: auto;
+`;
+
+export const Paragraph = styled.p`
+  color: ${({ tehme }) => theme.colors.white};
+  font-weight: 700;
 `;
