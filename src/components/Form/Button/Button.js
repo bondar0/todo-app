@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Button = styled.button`
   cursor: pointer;
-  padding: 12px 10px;
+  padding: 13px 10px;
   border-radius: 10px;
   border: 0;
   font-size: ${({ theme }) => theme.fontSize.m};

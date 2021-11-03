@@ -9,4 +9,9 @@ export const Input = styled.input`
   padding: 14px 15px;
   border: 0;
   margin-right: 10px;
+  border: 1px solid ${({ theme }) => theme.colors.white};
+
+  &.error {
+    border: 1px solid ${({ theme }) => theme.colors.red};
+  }
 `;

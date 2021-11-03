@@ -1,9 +1,39 @@
+import axios from 'axios';
+import { useState, useContext } from 'react';
+import { TodoContext } from 'views/Root';
 import { Btn } from './Button.styles';
 
-const Button = () => {
+const Button = ({ todoId }) => {
+  const [alert, setAlert] = useState('');
+  const { setTodos } = useContext(TodoContext);
+
+  const handlerRemove = () => {
+    (async () => {
+      try {
+        const response = await axios.delete(
+          `https://obscure-anchorage-82867.herokuapp.com/api/tasks/${todoId}`,
+          {
+            todoId,
+          }
+        );
+
+        setTodos(response.data);
+        console.log(response.data);
+
+        if (alert !== null) {
+          setTimeout(() => {
+            setAlert('');
+          }, 5000);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  };
+
   return (
     <>
-      <Btn isDelete>
+      <Btn isDelete onClick={handlerRemove}>
         <svg
           width="20"
           height="20"

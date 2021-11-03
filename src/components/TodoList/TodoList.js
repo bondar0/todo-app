@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { List, Paragraph } from './TodoList.styles';
 import Todo from './Todo/Todo';
 import axios from 'axios';
+import { TodoContext } from 'views/Root';
 
 const TodoList = () => {
   const [todo, setTodo] = useState([]);
   const [error, setError] = useState(null);
+  const { todos } = useContext(TodoContext);
 
   useEffect(() => {
     (async () => {
@@ -18,12 +20,16 @@ const TodoList = () => {
         setError('No defined tasks');
       }
     })();
-  }, []);
+  }, [todos]);
 
   return (
     <List>
       {todo.length > 0 ? (
-        todo.map((data) => <Todo key={data.id}>{data.title}</Todo>)
+        todo.map((data) => (
+          <Todo id={data.id} key={data.id}>
+            {data.title}
+          </Todo>
+        ))
       ) : (
         <Paragraph>{error ? error : 'Loading ...'}</Paragraph>
       )}
