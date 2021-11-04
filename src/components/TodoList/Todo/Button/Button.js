@@ -38,8 +38,7 @@ const Button = ({ todoId }) => {
           }
         );
 
-        setTodos(response.data);
-        setAlert(response.data.message);
+        setAlert('Edit Task');
 
         setTimeout(() => {
           setAlert('');
