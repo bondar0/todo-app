@@ -10,9 +10,8 @@ import { TodoContext } from 'views/Root';
 
 const Form = () => {
   const [taskName, setTaskName] = useState('');
-  const [alert, setAlert] = useState('');
   const [error, setError] = useState('');
-  const { setTodos } = useContext(TodoContext);
+  const { setTodos, setAlert } = useContext(TodoContext);
 
   const handlerInputChange = (e) => {
     e.preventDefault();
@@ -30,15 +29,15 @@ const Form = () => {
           }
         );
 
+        setError('');
         setTodos(response.data);
         setAlert(response.data.message);
+
         setTaskName('');
 
-        if (alert !== null) {
-          setTimeout(() => {
-            setAlert('');
-          }, 5000);
-        }
+        setTimeout(() => {
+          setAlert('');
+        }, 4000);
       } catch (e) {
         setError(e.response.data.errors.title[0]);
       }
@@ -47,7 +46,6 @@ const Form = () => {
 
   return (
     <Wrapper>
-      {alert ? <Alert>{alert}</Alert> : null}
       <InputGroup>
         <Input
           className={error ? 'error' : null}

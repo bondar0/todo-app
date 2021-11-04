@@ -4,6 +4,7 @@ export const theme = {
     pink: '#951bff',
     red: '#D00000',
     green: '#048031',
+    orange: '#c97d20',
   },
   fontSize: {
     xxl: '48px',
