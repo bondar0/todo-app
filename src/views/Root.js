@@ -8,21 +8,46 @@ import Form from 'components/Form/Form';
 import TodoList from 'components/TodoList/TodoList';
 import { Alert } from 'components/Alert/Alert';
 
-export const TodoContext = createContext();
+export const TodoContext = createContext({
+  value: null,
+  setValue: () => {},
+  alert: '',
+  setAlert: () => {},
+  taskName: '',
+  setTaskName: () => {},
+  visibleEditBtn: false,
+  setVisibleEditBtn: () => {},
+});
 
 const Root = () => {
-  const [todos, setTodos] = useState(null);
+  const [value, setValue] = useState(null);
   const [alert, setAlert] = useState('');
+  const [taskId, setTaskId] = useState(null);
+  const [taskName, setTaskName] = useState('');
+  const [visibleEditBtn, setVisibleEditBtn] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Wrapper>
-        <TodoContext.Provider value={{ todos, setTodos, alert, setAlert }}>
+        <TodoContext.Provider
+          value={{
+            value,
+            setValue,
+            alert,
+            setAlert,
+            taskId,
+            setTaskId,
+            taskName,
+            setTaskName,
+            visibleEditBtn,
+            setVisibleEditBtn,
+          }}
+        >
           {alert ? <Alert>{alert}</Alert> : null}
           <Title>Todo List</Title>
-          <Form setAlert={setAlert} setTodos={setTodos} />
-          <TodoList alert={alert} todos={todos} />
+          <Form />
+          <TodoList />
         </TodoContext.Provider>
       </Wrapper>
     </ThemeProvider>

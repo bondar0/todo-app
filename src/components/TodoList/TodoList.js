@@ -7,7 +7,7 @@ import { TodoContext } from 'views/Root';
 const TodoList = () => {
   const [todo, setTodo] = useState([]);
   const [error, setError] = useState(null);
-  const { todos, alert } = useContext(TodoContext);
+  const { value } = useContext(TodoContext);
 
   useEffect(() => {
     (async () => {
@@ -20,7 +20,7 @@ const TodoList = () => {
         setError('No defined tasks');
       }
     })();
-  }, [todos, alert]);
+  }, [value]);
 
   return (
     <List>

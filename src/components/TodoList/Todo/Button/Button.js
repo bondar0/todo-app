@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { TodoContext } from 'views/Root';
 import { Btn } from './Button.styles';
 
 const Button = ({ todoId }) => {
-  const { setTodos, setAlert } = useContext(TodoContext);
+  const { setValue, setAlert, setTaskId, setTaskName, setVisibleEditBtn } =
+    useContext(TodoContext);
 
   const handlerRemove = () => {
     (async () => {
@@ -16,7 +17,7 @@ const Button = ({ todoId }) => {
           }
         );
 
-        setTodos(response.data);
+        setValue(response.data);
         setAlert(response.data.message);
 
         setTimeout(() => {
@@ -39,6 +40,9 @@ const Button = ({ todoId }) => {
         );
 
         setAlert('Edit Task');
+        setTaskId(response.data.data.id);
+        setTaskName(response.data.data.title);
+        setVisibleEditBtn(true);
 
         setTimeout(() => {
           setAlert('');
