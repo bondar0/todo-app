@@ -5,6 +5,7 @@ export const Alert = styled.div`
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 111;
   min-width: 30%;
   padding: 20px;
   background-color: ${({ theme }) => theme.colors.red};

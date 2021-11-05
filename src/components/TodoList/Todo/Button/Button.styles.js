@@ -2,8 +2,12 @@ import { theme } from 'assets/styles/theme';
 import styled from 'styled-components';
 
 export const Btn = styled.button`
-  background-color: ${({ theme, isDelete }) =>
-    isDelete ? theme.colors.red : theme.colors.green};
+  background-color: ${({ theme, isDelete, isEdit }) =>
+    isDelete
+      ? theme.colors.red
+      : isEdit
+      ? theme.colors.orange
+      : theme.colors.green};
   display: flex;
   justify-content: center;
   align-items: center;

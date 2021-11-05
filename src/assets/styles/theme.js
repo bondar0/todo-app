@@ -1,9 +1,10 @@
 export const theme = {
   colors: {
     white: '#FFFFFF',
-    pink: '#951bff',
+    purple: '#951bff',
     red: '#D00000',
     green: '#048031',
+    orange: '#c97d20',
   },
   fontSize: {
     xxl: '48px',

@@ -4,15 +4,20 @@ import { Button } from './Button/Button';
 import { Wrapper } from './Form.styles';
 import { InputGroup } from './InputGroup/InputGroup';
 import { Input } from './Input/Input';
-import { Alert } from 'components/Alert/Alert';
 import { Error } from 'components/Error/Error';
 import { TodoContext } from 'views/Root';
 
 const Form = () => {
-  const [taskName, setTaskName] = useState('');
-  const [alert, setAlert] = useState('');
   const [error, setError] = useState('');
-  const { setTodos } = useContext(TodoContext);
+  const {
+    setValue,
+    setAlert,
+    setTaskName,
+    taskId,
+    taskName,
+    setVisibleEditBtn,
+    visibleEditBtn,
+  } = useContext(TodoContext);
 
   const handlerInputChange = (e) => {
     e.preventDefault();
@@ -30,15 +35,42 @@ const Form = () => {
           }
         );
 
-        setTodos(response.data);
+        setError('');
+        setValue(response.data);
         setAlert(response.data.message);
+
         setTaskName('');
 
-        if (alert !== null) {
-          setTimeout(() => {
-            setAlert('');
-          }, 5000);
-        }
+        setTimeout(() => {
+          setAlert('');
+        }, 4000);
+      } catch (e) {
+        setError(e.response.data.errors.title[0]);
+      }
+    })();
+  };
+
+  const handlerEditSubmit = (e) => {
+    e.preventDefault();
+    (async () => {
+      try {
+        const response = await axios.put(
+          `https://obscure-anchorage-82867.herokuapp.com/api/tasks/${taskId}/edit`,
+          {
+            taskId,
+            title: taskName,
+          }
+        );
+
+        setError('');
+        setValue(response.data);
+        setAlert(response.data.message);
+        setVisibleEditBtn(false);
+        setTaskName('');
+
+        setTimeout(() => {
+          setAlert('');
+        }, 4000);
       } catch (e) {
         setError(e.response.data.errors.title[0]);
       }
@@ -47,7 +79,6 @@ const Form = () => {
 
   return (
     <Wrapper>
-      {alert ? <Alert>{alert}</Alert> : null}
       <InputGroup>
         <Input
           className={error ? 'error' : null}
@@ -60,9 +91,15 @@ const Form = () => {
         {error ? <Error>{error}</Error> : null}
       </InputGroup>
 
-      <Button type="button" onClick={handlerSubmit}>
-        Add task
-      </Button>
+      {visibleEditBtn ? (
+        <Button className="btn-edit" type="button" onClick={handlerEditSubmit}>
+          Edit task
+        </Button>
+      ) : (
+        <Button type="button" onClick={handlerSubmit}>
+          Add task
+        </Button>
+      )}
     </Wrapper>
   );
 };

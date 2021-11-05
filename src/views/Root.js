@@ -6,20 +6,48 @@ import { Title } from 'components/Title/Title';
 import { Wrapper } from './Root.styles';
 import Form from 'components/Form/Form';
 import TodoList from 'components/TodoList/TodoList';
+import { Alert } from 'components/Alert/Alert';
 
-export const TodoContext = createContext();
+export const TodoContext = createContext({
+  value: null,
+  setValue: () => {},
+  alert: '',
+  setAlert: () => {},
+  taskName: '',
+  setTaskName: () => {},
+  visibleEditBtn: false,
+  setVisibleEditBtn: () => {},
+});
 
 const Root = () => {
-  const [todos, setTodos] = useState({});
+  const [value, setValue] = useState(null);
+  const [alert, setAlert] = useState('');
+  const [taskId, setTaskId] = useState(null);
+  const [taskName, setTaskName] = useState('');
+  const [visibleEditBtn, setVisibleEditBtn] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Wrapper>
-        <Title>Todo List</Title>
-        <TodoContext.Provider value={{ todos, setTodos }}>
-          <Form setTodos={setTodos} />
-          <TodoList todos={todos} />
+        <TodoContext.Provider
+          value={{
+            value,
+            setValue,
+            alert,
+            setAlert,
+            taskId,
+            setTaskId,
+            taskName,
+            setTaskName,
+            visibleEditBtn,
+            setVisibleEditBtn,
+          }}
+        >
+          {alert ? <Alert>{alert}</Alert> : null}
+          <Title>Todo List</Title>
+          <Form />
+          <TodoList />
         </TodoContext.Provider>
       </Wrapper>
     </ThemeProvider>
