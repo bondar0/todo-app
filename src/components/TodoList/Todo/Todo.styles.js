@@ -8,4 +8,8 @@ export const ListItem = styled.div`
   display: flex;
   align-items: center;
   padding-left: 15px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 `;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { TodoContext } from 'views/Root';
 import { Btn } from './Button.styles';
 
@@ -24,7 +24,7 @@ const Button = ({ todoId }) => {
           setAlert('');
         }, 4000);
       } catch (e) {
-        console.log(e.response);
+        setAlert('Error, task cannot be remove');
       }
     })();
   };
@@ -48,7 +48,7 @@ const Button = ({ todoId }) => {
           setAlert('');
         }, 4000);
       } catch (e) {
-        console.log(e.response);
+        setAlert('Error, task cannot be edit');
       }
     })();
   };

@@ -7,15 +7,18 @@ import { TodoContext } from 'views/Root';
 const TodoList = () => {
   const [todo, setTodo] = useState([]);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const { value } = useContext(TodoContext);
 
   useEffect(() => {
     (async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get(
           'https://obscure-anchorage-82867.herokuapp.com/api/tasks'
         );
         setTodo(response.data.data);
+        setIsLoading(false);
       } catch (e) {
         setError('No defined tasks');
       }
@@ -23,16 +26,16 @@ const TodoList = () => {
   }, [value]);
 
   return (
-    <List>
+    <List className={isLoading ? 'loading' : null}>
       {todo.length > 0 ? (
         todo.map((data) => (
           <Todo id={data.id} key={data.id}>
             {data.title}
           </Todo>
         ))
-      ) : (
-        <Paragraph>{error ? error : 'Loading ...'}</Paragraph>
-      )}
+      ) : error ? (
+        <Paragraph>error</Paragraph>
+      ) : null}
     </List>
   );
 };
